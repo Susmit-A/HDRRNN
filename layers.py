@@ -132,15 +132,3 @@ class SDC(Layer):
 
         x = self.concat([x1, x2, x3])
         return x
-
-
-class PSwish(Layer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def build(self, input_shape):
-        self.wt = self.add_weight('weight', initializer='ones', trainable=True, constraint=tf.keras.constraints.non_neg())
-
-    def call(self, inputs, **kwargs):
-        x = inputs
-        return x * tf.nn.sigmoid(x * self.wt) * tf.math.tanh(x)
